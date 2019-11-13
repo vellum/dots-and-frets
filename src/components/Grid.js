@@ -6,6 +6,10 @@ import { simplify, transposeBy, enharmonic } from '@tonaljs/note'
 import GuitarString from './GuitarString'
 import { chordType } from "@tonaljs/chord-dictionary"
 
+// TODO: Highlight root notes
+// TODO: select and visualize sequences
+
+
 class Grid extends React.Component {
 
     constructor(props){
@@ -100,6 +104,49 @@ class Grid extends React.Component {
         return ', '+thing
     }
 
+    printNotes = (arr) => {
+      let ret = ''
+      for (var i = 0; i < arr.length; i++) {
+        let o = note(arr[i])
+        console.log(o)
+        o = o.letter
+        if (i===0) {
+          ret += o
+        } else {
+          ret += ' ' + o
+        }
+      }
+      return ret
+    }
+
+    printNotesAsSteps = (arr) => {
+      let ret = ''
+      for (var i = 0; i < arr.length; i++) {
+        let o = note(arr[i])
+        o = o.step
+        if (i===0) {
+          ret += o
+        } else {
+          ret += ' ' + o
+        }
+      }
+      return ret
+    }
+
+    printNotesAsStepChanges = (arr) => {
+      let ret = ''
+      let prev = note(arr[0]).step
+      for (var i = 1; i < arr.length; i++) {
+        let o = note(arr[i])
+        o = o.step
+        let delta = o - prev
+        ret += ' ' + delta
+        prev = o
+      }
+
+      return ret
+    }
+
     printArray = (arr) => {
       let ret = ''
       for (var i = 0; i < arr.length; i++) {
@@ -119,11 +166,10 @@ class Grid extends React.Component {
         <div>
           <h3>scale</h3>
           <table>
-            <tr><th>name</th><td>{theScale.name}</td></tr>
             <tr><th>type</th><td>{theScale.type}</td></tr>
-            <tr><th>tonic</th><td>{theScale.tonic}</td></tr>
-            <tr><th>notes</th><td>{this.printArray(theScale.notes)}</td></tr>
-            <tr><th>intervals</th><td>{this.printArray(theScale.intervals)}</td></tr>
+            <tr><th>notes</th><td>{this.printNotes(theScale.notes)}</td></tr>
+            <tr><th>Intervals (computed)</th><td>{this.printNotesAsStepChanges(theScale.notes)}</td></tr>
+            <tr><th>intervals (proper)</th><td>{this.printArray(theScale.intervals)}</td></tr>
           </table>
         </div>
       )
