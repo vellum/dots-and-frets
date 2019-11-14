@@ -1,8 +1,9 @@
 import React from 'react'
-import { note, interval } from '@tonaljs/tonal'
+import { note, interval, distance } from '@tonaljs/tonal'
 import { entries } from '@tonaljs/scale-dictionary'
 import { scale } from '@tonaljs/scale'
 import { simplify, transposeBy, enharmonic } from '@tonaljs/note'
+import { names } from '@tonaljs/interval'
 import GuitarString from './GuitarString'
 import { chordType } from "@tonaljs/chord-dictionary"
 
@@ -35,6 +36,7 @@ class Grid extends React.Component {
 
     componentDidMount() {
       this.setState({ toots: this.cornpute(this.state.rootNote) })
+
     }
 
     cornpute = (roo) => {
@@ -71,7 +73,7 @@ class Grid extends React.Component {
     }
 
     handleChange3 = (e) => {
-      console.log(e.target.value)
+      //console.log(e.target.value)
       this.setState({
         selectedtuning : e.target.value
       })
@@ -104,12 +106,13 @@ class Grid extends React.Component {
         return ', '+thing
     }
 
+
     printNotes = (arr) => {
       let ret = ''
       for (var i = 0; i < arr.length; i++) {
         let o = note(arr[i])
-        console.log(o)
-        o = o.letter
+        //console.log(o)
+        o = o.name
         if (i===0) {
           ret += o
         } else {
@@ -135,13 +138,15 @@ class Grid extends React.Component {
 
     printNotesAsStepChanges = (arr) => {
       let ret = ''
-      let prev = note(arr[0]).step
+      let prev = note(arr[0]).name
       for (var i = 1; i < arr.length; i++) {
         let o = note(arr[i])
-        o = o.step
-        let delta = o - prev
-        ret += ' ' + delta
-        prev = o
+        let n = o.name
+        console.log(o)
+        let delta = distance(prev, n)
+        let ivl = interval(delta).semitones
+        ret += ' ' + ivl
+        prev = n
       }
 
       return ret
@@ -164,12 +169,10 @@ class Grid extends React.Component {
       let theScale = scale( this.state.rootNote + ' ' + aScale.name)
       return(
         <div>
-          <h3>scale</h3>
+          <h3>{theScale.type} in {note(this.state.rootNote).letter}</h3>
           <table>
-            <tr><th>type</th><td>{theScale.type}</td></tr>
-            <tr><th>notes</th><td>{this.printNotes(theScale.notes)}</td></tr>
-            <tr><th>Intervals (computed)</th><td>{this.printNotesAsStepChanges(theScale.notes)}</td></tr>
-            <tr><th>intervals (proper)</th><td>{this.printArray(theScale.intervals)}</td></tr>
+            <tr><th>notes</th><td>{this.printNotesInContext(this.state.scales[this.state.selectedscale])}</td></tr>
+            <tr><th>Semitone changes</th><td>{this.printNotesAsStepChanges(theScale.notes)}</td></tr>
           </table>
         </div>
       )
@@ -188,7 +191,6 @@ class Grid extends React.Component {
       })
       return (
       <div>
-        <h5>in context</h5>
         <div class='incontext'>{toots}</div>
         <div class='clear'/>
       </div>)
@@ -215,14 +217,13 @@ class Grid extends React.Component {
       )
 
       let thetuning = this.state.tunings[this.state.selectedtuning]
-      console.log(thetuning.strings)
+      //console.log(thetuning.strings)
       let thestrings = thetuning.strings
       return (
         <div>
             {this.printScaleDetail(this.state.scales[this.state.selectedscale])}
-            {this.printNotesInContext(this.state.scales[this.state.selectedscale])}
+
             <div class="selector">
-              <hr/>
               <p>Show me the <select onChange={this.handleChange}>{form_scales}</select> scale in <select onChange={this.handleChange2}>{form_keys}</select> for <select onChange={this.handleChange3}>{availabletunings}</select>
               </p>
 
