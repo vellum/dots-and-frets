@@ -17,12 +17,12 @@ class Grid extends React.Component {
       super(props)
       this.state = {
         scales: entries(),
-        selectedscale: 9,
-        keyOf: 'D',
-        rootNote: 'D3',
+        selectedscale: 0,
+        keyOf: 'E',
+        rootNote: 'E3',
         actualscale: null,
         toots: [],
-        selectedtuning: 3,
+        selectedtuning: 0,
         tunings:[
           { name: 'E Standard', strings: [ 'E2', 'A2', 'D3', 'G3', 'B3', 'E4' ] },
           { name: 'D Standard', strings: [ 'D2', 'G2', 'C3', 'F3', 'A3', 'D4' ] },
@@ -36,11 +36,9 @@ class Grid extends React.Component {
 
     componentDidMount() {
       this.setState({ toots: this.cornpute(this.state.rootNote) })
-
     }
 
     cornpute = (roo) => {
-
         let root = note(roo)
         let oct = root.oct
         let str = root.letter
@@ -51,8 +49,8 @@ class Grid extends React.Component {
           ns.push(simplify(str + oct))
         }
         return ns
-
     }
+
     handleChange = (event) => {
         this.setState({
           selectedscale: event.target.value
@@ -168,11 +166,11 @@ class Grid extends React.Component {
     printScaleDetail = (aScale) => {
       let theScale = scale( this.state.rootNote + ' ' + aScale.name)
       return(
-        <div>
+        <div class='scaledetail'>
           <h3>{theScale.type} in {note(this.state.rootNote).letter}</h3>
           <table>
             <tr><th>notes</th><td>{this.printNotesInContext(this.state.scales[this.state.selectedscale])}</td></tr>
-            <tr><th>Semitone changes</th><td>{this.printNotesAsStepChanges(theScale.notes)}</td></tr>
+            <tr class="semitone_row"><th>Semitone changes</th><td>{this.printNotesAsStepChanges(theScale.notes)}</td></tr>
           </table>
         </div>
       )
@@ -196,7 +194,7 @@ class Grid extends React.Component {
       </div>)
     }
     render() {
-      let availablekeys = ['A','B','C','D','E','F','G']
+      let availablekeys = ['A','A#','B','C','C#','D','D#','E','F','F#','G','G#']
       let scales = this.state.scales
       let selectedscale = this.state.selectedscale
       let form_scales = scales.map( (item, i) => this.getFormScales(item, i) )
@@ -222,11 +220,9 @@ class Grid extends React.Component {
       return (
         <div>
             {this.printScaleDetail(this.state.scales[this.state.selectedscale])}
-
             <div class="selector">
-              <p>Show me the <select onChange={this.handleChange}>{form_scales}</select> scale in <select onChange={this.handleChange2}>{form_keys}</select> for <select onChange={this.handleChange3}>{availabletunings}</select>
+              <p>Show me the <select onChange={this.handleChange}>{form_scales}</select> scale in the key of <select onChange={this.handleChange2}>{form_keys}</select> for <select onChange={this.handleChange3}>{availabletunings}</select> tuning
               </p>
-
             </div>
             <GuitarString stringkey={'string5'} rootNote={thestrings[5]} validnotes={validnotes} scalename={scalename} />
             <GuitarString stringkey={'string4'} rootNote={thestrings[4]} validnotes={validnotes} scalename={scalename} />

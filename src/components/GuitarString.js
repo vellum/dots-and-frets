@@ -28,14 +28,19 @@ class GuitarString extends React.Component {
         if (p === 'notplayed'){
           p = (this.props.validnotes.includes(enharmonic(aNote))) ? 'played' : 'notplayed'
         }
-        let sm = marked.includes(i) ? 'small':'smallhide'
         if (i===0){
-          return (<th key={'string'+i+aNote} class={p}><div class='bordercircle'></div><div class="stringnote">{aNote}</div></th>)
+          if (p === 'notplayed'){
+          return (<td key={'string'+i+aNote} class={p}><div class={'notename'}>{aNote}</div><div class='circle'></div><div class={'smallhide'}>x</div></td>)
+          }
+          return (<td key={'string'+i+aNote} class={p}><div class={'notename'}>{aNote}</div><div class='circle'></div><div class={'small'}>{i}</div></td>)
         }
-        return (<td key={'string'+i+aNote} class={p}><div class='circle'></div><div class={sm}>{i}</div></td>)
+        if (p === 'notplayed'){
+        return (<td key={'string'+i+aNote} class={p}><div class='circle'></div><div class={'smallhide'}>x</div></td>)
+        }
+        return (<td key={'string'+i+aNote} class={p}><div class='circle'></div><div class={'small'}>{i}</div></td>)
       })
-      return (<div key={'string'+this.props.stringkey}><table class='string'>
-        <tr>
+      return (<div key={'string'+this.props.stringkey} class='guitarstring'><table class='string'>
+        <tr class="frets">
           {frets}
         </tr>
         </table></div>)
