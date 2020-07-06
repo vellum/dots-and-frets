@@ -1,7 +1,5 @@
 import React from 'react';
-import { note, interval } from "@tonaljs/tonal";
-import { entries } from "@tonaljs/scale-dictionary";
-import { scale } from "@tonaljs/scale"
+import { note } from "@tonaljs/tonal";
 import { simplify, enharmonic } from "@tonaljs/note"
 
 class GuitarString extends React.Component {
@@ -22,7 +20,6 @@ class GuitarString extends React.Component {
     }
 
     render() {
-      let marked = [1,3,5,7,9,12,14]
       let frets = this.state.frets.map((aNote, i) => {
         let p = (this.props.validnotes.includes(aNote)) ? 'played' : 'notplayed'
         if (p === 'notplayed'){

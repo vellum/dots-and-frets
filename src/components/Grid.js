@@ -2,10 +2,10 @@ import React from 'react'
 import { note, interval, distance } from '@tonaljs/tonal'
 import { entries } from '@tonaljs/scale-dictionary'
 import { scale } from '@tonaljs/scale'
-import { simplify, transposeBy, enharmonic } from '@tonaljs/note'
-import { names } from '@tonaljs/interval'
+import { simplify, enharmonic } from '@tonaljs/note'
 import GuitarString from './GuitarString'
-import { chordType } from "@tonaljs/chord-dictionary"
+import NotesView from './NotesView'
+import SemitoneView from './SemitoneView'
 
 // TODO: Highlight root notes
 // TODO: select and visualize sequences
@@ -46,7 +46,8 @@ class Grid extends React.Component {
         ns.push(simplify(root.name))
         for (var i = 0; i < 11; i++){
           str += '#'
-          ns.push(simplify(str + oct))
+          let aNote = note(str)
+          ns.push(simplify(enharmonic(aNote) + oct))
         }
         return ns
     }
@@ -62,6 +63,9 @@ class Grid extends React.Component {
 
       newkey = newkey.toUpperCase()
       newkey = enharmonic(newkey)
+
+
+      console.log(newkey)
       this.setState({
         keyOf: newkey,
         rootNote: newkey+'3',
@@ -76,6 +80,7 @@ class Grid extends React.Component {
         selectedtuning : e.target.value
       })
     }
+
     getFormScales = (item, i) => {
       if (i===this.state.selectedscale){
         return <option value={i} selected>{item.name}</option>
@@ -163,63 +168,59 @@ class Grid extends React.Component {
       return ret
     }
 
-    printScaleDetail = (aScale) => {
+    printScaleDetail = (aScale, validnotes) => {
       let theScale = scale( this.state.rootNote + ' ' + aScale.name)
+      let theNote = note(this.state.rootNote)
       return(
         <div class='scaledetail'>
-          <h3>{theScale.type} in {note(this.state.rootNote).letter}</h3>
+          <h3>{theScale.type} in {enharmonic(theNote.pc)}</h3>
           <table>
-            <tr><th>notes</th><td>{this.printNotesInContext(this.state.scales[this.state.selectedscale])}</td></tr>
-            <tr class="semitone_row"><th>Semitone changes</th><td>{this.printNotesAsStepChanges(theScale.notes)}</td></tr>
+            <tr><th>notes</th><td>
+
+                  <NotesView stringkey={'notes'} rootNote={enharmonic(theNote.pc)} validnotes={validnotes} scalename={''} />
+
+            </td></tr>
+            <tr class="semitone_row"><th>Semitone changes</th><td><SemitoneView scale={aScale}/></td></tr>
           </table>
         </div>
       )
     }
 
-    printNotesInContext = (aScale) => {
-      let theScale = scale( this.state.rootNote + ' ' + aScale.name)
-      let root = note(this.state.rootNote)
-      let toots = this.state.toots.map( (aNote, ind) => {
 
-        let isPlayed = (theScale.notes.includes(enharmonic(aNote))) ? 'played' : 'notplayed'
-        if (isPlayed==='notplayed'){
-          isPlayed = (theScale.notes.includes(aNote)) ? 'played' : 'notplayed'
-        }
-        return (<div class={isPlayed}><div class='circle'></div><br/>{aNote}</div>)
-      })
-      return (
-      <div>
-        <div class='incontext'>{toots}</div>
-        <div class='clear'/>
-      </div>)
-    }
     render() {
-      let availablekeys = ['A','A#','B','C','C#','D','D#','E','F','F#','G','G#']
+
+      // shortcuts
       let scales = this.state.scales
       let selectedscale = this.state.selectedscale
-      let form_scales = scales.map( (item, i) => this.getFormScales(item, i) )
-      let form_keys = availablekeys.map( (item) => this.getFormKeys(item) )
-      let scalename = this.state.scales[this.state.selectedscale].name
-
-      let validnotes = []
-      for (var ind = 0; ind < 6; ind++){
-        let keyof = this.state.keyOf + '' + ind
-        let thescale = scale( keyof + ' ' + scalename )
-        for (var i=0;i<thescale.notes.length;i++){
-          validnotes.push(thescale.notes[i])
-        }
-      }
-
+      let availablekeys = ['A','A#','B','C','C#','D','D#','E','F','F#','G','G#']
+      let scalename = scales[selectedscale].name
       let availabletunings = this.state.tunings.map(
         (item,i) => this.getFormTunings(item,i)
       )
-
       let thetuning = this.state.tunings[this.state.selectedtuning]
-      //console.log(thetuning.strings)
       let thestrings = thetuning.strings
+
+      // turn arrays into form field html gunk
+      let form_scales = scales.map( (item, i) => this.getFormScales(item, i) )
+      let form_keys = availablekeys.map( (item) => this.getFormKeys(item) )
+
+      // compute the valid notes (dark dots) for each of the strings
+      let validnotes = []
+      let validnotesPC = []
+      let numstrings = 6
+      for (var ind = 0; ind < numstrings; ind++){
+        let keyof = this.state.keyOf + '' + ind
+        let thescale = scale( keyof + ' ' + scalename )
+        for (var i=0;i<thescale.notes.length;i++){
+          let aNote = note(thescale.notes[i])
+          validnotes.push(thescale.notes[i])
+          validnotesPC.push(aNote.pc)
+        }
+      }
+
       return (
         <div>
-            {this.printScaleDetail(this.state.scales[this.state.selectedscale])}
+            {this.printScaleDetail(this.state.scales[this.state.selectedscale], validnotesPC)}
             <div class="selector">
               <p>Show me the <select onChange={this.handleChange}>{form_scales}</select> scale in the key of <select onChange={this.handleChange2}>{form_keys}</select> for <select onChange={this.handleChange3}>{availabletunings}</select> tuning
               </p>
