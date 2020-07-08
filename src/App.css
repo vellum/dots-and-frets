@@ -102,7 +102,6 @@ hr {
   border-color: #fff;
 }
 
-
 .small, .smallhide, .smallshow {
   font-size: 66%;
   padding:0.4rem;
@@ -199,9 +198,11 @@ select {
   float:left;
   width: 1.5em;
 }
+
 .incontext .small {
   margin-top:-0.025em;
 }
+
 .semitonevalue{
   font-size: 85%;
   float: left;
@@ -209,11 +210,13 @@ select {
 }
 
 @media only screen and (max-width: 768px) {
+
   body {
     font-size: 75%;
     padding:1rem;
     padding-top: 6rem;
   }
+
   h3 {font-size: 300%; }
 
   .notename {
@@ -233,6 +236,7 @@ select {
     float:left;
     width: 2em;
   }
+
   .incontext .small {
     margin-top:-0.025em;
     margin-left: -0.25em;
@@ -242,4 +246,5 @@ select {
     width: 0.66rem;
     height: 0.66rem;
   }
+
 }
