@@ -37,9 +37,11 @@ class GuitarString extends React.Component {
         return (<td key={'string'+i+aNote} className={p}><div className='circle'></div><div className={'small'}>{i}</div></td>)
       })
       return (<div key={'string'+this.props.stringkey} className='guitarstring'><table className='string'>
+        <tbody>
         <tr className="frets">
           {frets}
         </tr>
+        </tbody>
         </table></div>)
     }
 

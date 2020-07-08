@@ -165,12 +165,14 @@ class Grid extends React.Component {
         <div className='scaledetail'>
           <h3>{theScale.type} in {enharmonic(theNote.pc)}</h3>
           <table>
+            <tbody>
             <tr><th>notes</th><td>
 
                   <NotesView stringkey={'notes'} scale={aScale} rootNote={simplify(theNote.letter+theNote.acc)} validnotes={validnotes} scalename={''} />
 
             </td></tr>
             <tr className="semitone_row"><th>Semitone changes</th><td><SemitoneView scale={aScale}/></td></tr>
+            </tbody>
           </table>
         </div>
       )
