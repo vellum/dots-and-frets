@@ -22,12 +22,13 @@ class Grid extends React.Component {
         toots: [],
         selectedtuning: 0,
         tunings:[
-          { name: 'E Standard', strings: [ 'E2', 'A2', 'D3', 'G3', 'B3', 'E4' ] },
-          { name: 'D Standard', strings: [ 'D2', 'G2', 'C3', 'F3', 'A3', 'D4' ] },
-          { name: 'Open E', strings: [ 'E2', 'B2', 'E3', 'G#3', 'B3', 'E4' ] },
-          { name: 'Open D', strings: [ 'D2', 'A2', 'D3', 'F#3', 'A3', 'D4' ] },
-          { name: 'Open C#', strings: [ 'C#2', 'G#2', 'C#3', 'F3', 'G#3', 'C#4' ] },
-          { name: 'Open C (Low)', strings: [ 'C2', 'G2', 'C3', 'E3', 'G3', 'C4' ] }
+          { name: 'Standard (EADGBE)', strings: [ 'E2', 'A2', 'D3', 'G3', 'B3', 'E4' ] },
+          { name: '1/2 step down (DGCFAD)', strings: [ 'D#2', 'G#2', 'C#3', 'F#3', 'A#3', 'D#4' ] },
+          { name: 'Whole step down (DGCFAD)', strings: [ 'D2', 'G2', 'C3', 'F3', 'A3', 'D4' ] },
+          { name: 'Open E (EBEG#BE)', strings: [ 'E2', 'B2', 'E3', 'G#3', 'B3', 'E4' ] },
+          { name: 'Open D (DADF#AD)', strings: [ 'D2', 'A2', 'D3', 'F#3', 'A3', 'D4' ] },
+          { name: 'Open C# (C#G#C#FG#C#)', strings: [ 'C#2', 'G#2', 'C#3', 'F3', 'G#3', 'C#4' ] },
+          { name: 'Open C (CGCEGC)', strings: [ 'C2', 'G2', 'C3', 'E3', 'G3', 'C4' ] }
         ]
       }
     }

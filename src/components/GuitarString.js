@@ -51,7 +51,7 @@ class GuitarString extends React.Component {
       let str = root.letter + root.acc
       let ns = []
       ns.push(simplify(root.name))
-      for (var i = 0; i < 15; i++){
+      for (var i = 0; i < 18; i++){
         str += '#'
         ns.push(simplify(str + oct))
       }
