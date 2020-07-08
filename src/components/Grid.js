@@ -62,10 +62,8 @@ class Grid extends React.Component {
       let newkey = e.target.value
 
       newkey = newkey.toUpperCase()
-      newkey = enharmonic(newkey)
-
-
-      console.log(newkey)
+      //newkey = enharmonic(newkey)
+      //console.log(newkey)
       this.setState({
         keyOf: newkey,
         rootNote: newkey+'3',
@@ -177,7 +175,7 @@ class Grid extends React.Component {
           <table>
             <tr><th>notes</th><td>
 
-                  <NotesView stringkey={'notes'} rootNote={enharmonic(theNote.pc)} validnotes={validnotes} scalename={''} />
+                  <NotesView stringkey={'notes'} scale={aScale} rootNote={simplify(theNote.letter+theNote.acc)} validnotes={validnotes} scalename={''} />
 
             </td></tr>
             <tr class="semitone_row"><th>Semitone changes</th><td><SemitoneView scale={aScale}/></td></tr>
