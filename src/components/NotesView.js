@@ -1,6 +1,6 @@
 import React from 'react';
-import { note, interval } from "@tonaljs/tonal";
-import { simplify, enharmonic } from "@tonaljs/note"
+import { interval } from "@tonaljs/tonal";
+import { simplify } from "@tonaljs/note"
 
 class NotesView extends React.Component {
 
