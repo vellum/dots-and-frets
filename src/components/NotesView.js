@@ -41,9 +41,9 @@ class NotesView extends React.Component {
         }
         let ret = slots.map((o, i) => {
           let p = (o.truth) ? 'played' : 'notplayed'
-          return (<div key={'slot'+i} class={p + ' incontext'} style={{ float:'left', width: '1.3em'}}><div style={{fontSize:'50%'}} class='circle'></div><div class={'small'} style={{marginTop:'-0.025em'}}>{o.note}</div></div>)
+          return (<div key={'slot'+i} className={p + ' incontext'} style={{ float:'left', width: '1.3em'}}><div style={{fontSize:'50%'}} className='circle'></div><div className={'small'} style={{marginTop:'-0.025em'}}>{o.note}</div></div>)
         })
-        return (<div key={'string'+this.props.stringkey} class='NotesView'>
+        return (<div key={'string'+this.props.stringkey} className='NotesView'>
             {ret}
           </div>)
       }

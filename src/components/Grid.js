@@ -162,7 +162,7 @@ class Grid extends React.Component {
       let theScale = scale( this.state.rootNote + ' ' + aScale.name)
       let theNote = note(this.state.rootNote)
       return(
-        <div class='scaledetail'>
+        <div className='scaledetail'>
           <h3>{theScale.type} in {enharmonic(theNote.pc)}</h3>
           <table>
             <tr><th>notes</th><td>
@@ -170,7 +170,7 @@ class Grid extends React.Component {
                   <NotesView stringkey={'notes'} scale={aScale} rootNote={simplify(theNote.letter+theNote.acc)} validnotes={validnotes} scalename={''} />
 
             </td></tr>
-            <tr class="semitone_row"><th>Semitone changes</th><td><SemitoneView scale={aScale}/></td></tr>
+            <tr className="semitone_row"><th>Semitone changes</th><td><SemitoneView scale={aScale}/></td></tr>
           </table>
         </div>
       )
@@ -211,7 +211,7 @@ class Grid extends React.Component {
       return (
         <div>
             {this.printScaleDetail(this.state.scales[this.state.selectedscale], validnotesPC)}
-            <div class="selector">
+            <div className="selector">
               <p>Show me the <select onChange={this.handleChange}>{form_scales}</select> scale in the key of <select onChange={this.handleChange2}>{form_keys}</select> for <select onChange={this.handleChange3}>{availabletunings}</select> tuning
               </p>
             </div>

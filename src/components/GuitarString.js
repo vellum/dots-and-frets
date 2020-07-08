@@ -27,17 +27,17 @@ class GuitarString extends React.Component {
         }
         if (i===0){
           if (p === 'notplayed'){
-          return (<td key={'string'+i+aNote} class={p}><div class={'notename'}>{aNote}</div><div class='circle'></div><div class={'smallhide'}>x</div></td>)
+          return (<td key={'string'+i+aNote} className={p}><div className={'notename'}>{aNote}</div><div className='circle'></div><div className={'smallhide'}>x</div></td>)
           }
-          return (<td key={'string'+i+aNote} class={p}><div class={'notename'}>{aNote}</div><div class='circle'></div><div class={'small'}>{i}</div></td>)
+          return (<td key={'string'+i+aNote} className={p}><div className={'notename'}>{aNote}</div><div className='circle'></div><div className={'small'}>{i}</div></td>)
         }
         if (p === 'notplayed'){
-        return (<td key={'string'+i+aNote} class={p}><div class='circle'></div><div class={'smallhide'}>x</div></td>)
+        return (<td key={'string'+i+aNote} className={p}><div className='circle'></div><div className={'smallhide'}>x</div></td>)
         }
-        return (<td key={'string'+i+aNote} class={p}><div class='circle'></div><div class={'small'}>{i}</div></td>)
+        return (<td key={'string'+i+aNote} className={p}><div className='circle'></div><div className={'small'}>{i}</div></td>)
       })
-      return (<div key={'string'+this.props.stringkey} class='guitarstring'><table class='string'>
-        <tr class="frets">
+      return (<div key={'string'+this.props.stringkey} className='guitarstring'><table className='string'>
+        <tr className="frets">
           {frets}
         </tr>
         </table></div>)
