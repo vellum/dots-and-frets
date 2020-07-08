@@ -73,17 +73,12 @@ class Grid extends React.Component {
     }
 
     getFormScales = (item, i) => {
-      if (i===this.state.selectedscale){
-        return <option value={i} selected>{item.name}</option>
-      }
       return <option value={i}>{item.name}</option>
     }
 
     getFormKeys = (item, i) => {
-      if (item.toUpperCase() === this.state.keyOf){
-        return <option value={item} selected>{item}</option>
-      }
-      return <option value={item}>{item}</option>
+      let str = item.toUpperCase()
+      return <option value={str}>{str}</option>
     }
 
     getFormTunings = (item, i) => {
@@ -214,7 +209,7 @@ class Grid extends React.Component {
         <div>
             {this.printScaleDetail(this.state.scales[this.state.selectedscale], validnotesPC)}
             <div className="selector">
-              <p>Show me the <select onChange={this.handleChange}>{form_scales}</select> scale in the key of <select onChange={this.handleChange2}>{form_keys}</select> for <select onChange={this.handleChange3}>{availabletunings}</select> tuning
+              <p>Show me the <select defaultValue={this.state.selectedscale} onChange={this.handleChange}>{form_scales}</select> scale in the key of <select defaultValue={this.state.keyOf} onChange={this.handleChange2}>{form_keys}</select> for <select onChange={this.handleChange3}>{availabletunings}</select> tuning
               </p>
             </div>
             <GuitarString stringkey={'string5'} rootNote={thestrings[5]} validnotes={validnotes} scalename={scalename} />
