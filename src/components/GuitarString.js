@@ -48,7 +48,7 @@ class GuitarString extends React.Component {
     computeFrets = (rootNote) => {
       let root = note(rootNote)
       let oct = root.oct
-      let str = root.letter
+      let str = root.letter + root.acc
       let ns = []
       ns.push(simplify(root.name))
       for (var i = 0; i < 15; i++){

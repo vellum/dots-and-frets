@@ -155,7 +155,7 @@ class Grid extends React.Component {
       let theNote = note(this.state.rootNote)
       return(
         <div className='scaledetail'>
-          <h3>{theScale.type} in {enharmonic(theNote.pc)}</h3>
+          <h3>{theScale.type} in {simplify(theNote.pc)}</h3>
           <table>
             <tbody>
             <tr><th>notes</th><td>
@@ -197,8 +197,8 @@ class Grid extends React.Component {
         let thescale = scale( keyof + ' ' + scalename )
         for (var i=0;i<thescale.notes.length;i++){
           let aNote = note(thescale.notes[i])
-          validnotes.push(thescale.notes[i])
-          validnotesPC.push(aNote.pc)
+          validnotes.push(simplify(thescale.notes[i]))
+          validnotesPC.push(aNote)
         }
       }
 
@@ -206,9 +206,9 @@ class Grid extends React.Component {
         <div>
             {this.printScaleDetail(this.state.scales[this.state.selectedscale], validnotesPC)}
             <div className="selector">
-              <p>Show me the
-              <select key='select_scale' defaultValue={this.state.selectedscale} onChange={this.handleChange}>{form_scales}</select> scale in the key of
-              <select key='select_key' defaultValue={this.state.keyOf} onChange={this.handleChange2}>{form_keys}</select> for
+              <p>Show me the&nbsp;
+              <select key='select_scale' defaultValue={this.state.selectedscale} onChange={this.handleChange}>{form_scales}</select> scale in the key of&nbsp;
+              <select key='select_key' defaultValue={this.state.keyOf} onChange={this.handleChange2}>{form_keys}</select> for&nbsp;
               <select key='select_tuning' defaultValue={this.state.selectedtuning} onChange={this.handleChange3}>{availabletunings}</select> tuning
               </p>
             </div>
