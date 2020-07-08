@@ -73,19 +73,16 @@ class Grid extends React.Component {
     }
 
     getFormScales = (item, i) => {
-      return <option value={i}>{item.name}</option>
+      return <option key={'form_scales_' + i} value={i}>{item.name}</option>
     }
 
     getFormKeys = (item, i) => {
       let str = item.toUpperCase()
-      return <option value={str}>{str}</option>
+      return <option key={'form_keys_' + i} value={str}>{str}</option>
     }
 
     getFormTunings = (item, i) => {
-      if (i === this.state.selectedtuning){
-        return <option value={i} selected>{item.name}</option>
-      }
-      return <option value={i}>{item.name}</option>
+      return <option key={'form_tunings_' + i} value={i}>{item.name}</option>
     }
 
     commaDelim = (thing, i) => {
@@ -189,7 +186,7 @@ class Grid extends React.Component {
 
       // turn arrays into form field html gunk
       let form_scales = scales.map( (item, i) => this.getFormScales(item, i) )
-      let form_keys = availablekeys.map( (item) => this.getFormKeys(item) )
+      let form_keys = availablekeys.map( (item, i) => this.getFormKeys(item, i) )
 
       // compute the valid notes (dark dots) for each of the strings
       let validnotes = []
@@ -209,7 +206,10 @@ class Grid extends React.Component {
         <div>
             {this.printScaleDetail(this.state.scales[this.state.selectedscale], validnotesPC)}
             <div className="selector">
-              <p>Show me the <select defaultValue={this.state.selectedscale} onChange={this.handleChange}>{form_scales}</select> scale in the key of <select defaultValue={this.state.keyOf} onChange={this.handleChange2}>{form_keys}</select> for <select onChange={this.handleChange3}>{availabletunings}</select> tuning
+              <p>Show me the
+              <select key='select_scale' defaultValue={this.state.selectedscale} onChange={this.handleChange}>{form_scales}</select> scale in the key of
+              <select key='select_key' defaultValue={this.state.keyOf} onChange={this.handleChange2}>{form_keys}</select> for
+              <select key='select_tuning' defaultValue={this.state.selectedtuning} onChange={this.handleChange3}>{availabletunings}</select> tuning
               </p>
             </div>
             <GuitarString stringkey={'string5'} rootNote={thestrings[5]} validnotes={validnotes} scalename={scalename} />
