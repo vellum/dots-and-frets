@@ -195,6 +195,18 @@ select {
   background-color: rgba(0,0,0,0.05);
 }
 
+.incontext {
+  float:left;
+  width: 1.5em;
+}
+.incontext .small {
+  margin-top:-0.025em;
+}
+.semitonevalue{
+  font-size: 85%;
+  float: left;
+  margin: 0.3em;
+}
 
 @media only screen and (max-width: 768px) {
   body {
@@ -203,6 +215,7 @@ select {
     padding-top: 6rem;
   }
   h3 {font-size: 300%; }
+
   .notename {
     transform: translate(-5rem, 0.2rem);
   }
@@ -214,5 +227,19 @@ select {
     transition-property: background-color;
     transition-duration: 0.5s;
     /*margin: -0.1rem;*/
+  }
+
+  .incontext {
+    float:left;
+    width: 2em;
+  }
+  .incontext .small {
+    margin-top:-0.025em;
+    margin-left: -0.25em;
+  }
+
+  .incontext .circle {
+    width: 0.66rem;
+    height: 0.66rem;
   }
 }

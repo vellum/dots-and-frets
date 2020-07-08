@@ -7,6 +7,8 @@ import GuitarString from './GuitarString'
 import NotesView from './NotesView'
 import SemitoneView from './SemitoneView'
 
+// TODO: responsive design nonsense
+// TODO: print pdf
 // TODO: Highlight root notes
 // TODO: select and visualize sequences
 class Grid extends React.Component {

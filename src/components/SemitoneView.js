@@ -34,7 +34,7 @@ class SemitoneView extends React.Component {
       let ret = this.state.semitones.map((st, i)=>{
         let diff = st-prev
         prev = st
-        return <div key={'smv_item_'+i} style={{fontSize:'85%', float:'left', margin:'0.3em'}}>{diff}</div>
+        return <div key={'smv_item_'+i} className='semitonevalue'>{diff}</div>
       })
       return (<div key='semitoneview'>{ret}</div>)
     }
