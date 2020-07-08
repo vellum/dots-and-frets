@@ -9,8 +9,6 @@ import SemitoneView from './SemitoneView'
 
 // TODO: Highlight root notes
 // TODO: select and visualize sequences
-
-
 class Grid extends React.Component {
 
     constructor(props){
@@ -60,20 +58,15 @@ class Grid extends React.Component {
 
     handleChange2 = (e) => {
       let newkey = e.target.value
-
       newkey = newkey.toUpperCase()
-      //newkey = enharmonic(newkey)
-      //console.log(newkey)
       this.setState({
         keyOf: newkey,
         rootNote: newkey+'3',
         toots: this.cornpute(newkey+'3')
       })
-
     }
 
     handleChange3 = (e) => {
-      //console.log(e.target.value)
       this.setState({
         selectedtuning : e.target.value
       })
@@ -106,7 +99,6 @@ class Grid extends React.Component {
         }
         return ', '+thing
     }
-
 
     printNotes = (arr) => {
       let ret = ''

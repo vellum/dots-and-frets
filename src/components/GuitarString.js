@@ -44,7 +44,6 @@ class GuitarString extends React.Component {
     }
 
     computeFrets = (rootNote) => {
-      console.log(rootNote)
       let root = note(rootNote)
       let oct = root.oct
       let str = root.letter
@@ -56,7 +55,6 @@ class GuitarString extends React.Component {
       }
       this.setState({frets:ns})
     }
-
 
 }
 
