@@ -1,6 +1,6 @@
 # dots and frets
 
-Dots and Frets is a visualization of music scales for the guitar fretboard. I made this to hack music theory to learn guitar faster.
+Dots and Frets visualizes music scales for the guitar fretboard. I made this to hack music theory to learn guitar faster.
 
 ![screen sample](./screencap.png)
 
